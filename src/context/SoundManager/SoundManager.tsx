@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, useContext, useRef } from 'react';
+import { createContext, useState, useEffect, useRef } from 'react';
 
 type SoundManagerContextType = {
     playSoundEffect: (name: string) => void;
@@ -9,7 +9,7 @@ type SoundManagerContextType = {
 };
 
 type Props = {
-    children: React.JSX.Element;
+    children: JSX.Element;
 };
 
 type AudioCollection = {
@@ -23,17 +23,7 @@ type MusicTrackMap = {
 export const SoundManagerContext =
     createContext<SoundManagerContextType | null>(null);
 
-export function useSoundManager() {
-    const currentSoundManagerContext = useContext(SoundManagerContext);
-
-    if (!currentSoundManagerContext) {
-        throw new Error('SoundManagerContext is null');
-    }
-
-    return currentSoundManagerContext;
-}
-
-function SoundManagerContextWrapper({ children }: Props) {
+function SoundManager({ children }: Props) {
     const [soundEffects, setSoundEffects] = useState<AudioCollection>({});
     const [musicTracks, setMusicTracks] = useState<MusicTrackMap>({});
     const musicElement = useRef(new Audio());
@@ -100,4 +90,4 @@ function SoundManagerContextWrapper({ children }: Props) {
     );
 }
 
-export default SoundManagerContextWrapper;
+export default SoundManager;
